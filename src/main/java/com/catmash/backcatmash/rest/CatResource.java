@@ -9,19 +9,23 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@CrossOrigin(origins = "*",  allowedHeaders = "*")
 @RequestMapping("/cats")
 public class CatResource {
 
     @Autowired
     private CateService service;
 
+    @CrossOrigin(origins = "*",  allowedHeaders = "*")
     @RequestMapping("/")
     public ResponseEntity getCats(){
         return ResponseEntity.ok().body(service.getAllCats());
     }
 
-    @PostMapping("/update")
+    @CrossOrigin(origins = "*",  allowedHeaders = "*")
+    @PutMapping("/update")
     public ResponseEntity updateCat(@RequestBody CatDto cat) {
         return ResponseEntity.ok().body(service.update(cat));
     }

@@ -8,6 +8,7 @@ import com.catmash.backcatmash.repository.CatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +23,10 @@ public class CateService {
 
 
     public CatsList getAllCats(){
-        List<CatDto> list = catRepository.findAll().stream().map(mapper::entityToDto).collect(Collectors.toList());
-
+        List<CatDto> list = catRepository.findAll().stream()
+                .map(mapper::entityToDto)
+                .sorted(Comparator.comparing(CatDto::getLikes).reversed())
+                .collect(Collectors.toList());
         return new CatsList(list);
     }
 
